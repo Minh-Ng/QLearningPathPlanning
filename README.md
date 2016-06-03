@@ -1,5 +1,6 @@
 How to use: 
-    Install nodejs from www.nodejs.org
-    cd into cloned/forked directory
-    npm install
-    node app.js
+
+1. Install nodejs from www.nodejs.org
+2. cd into cloned/forked directory
+3. npm install
+4. node app.js
