@@ -1,0 +1,14 @@
+{
+  "name": "CSE_190_Final_Project",
+  "version": "1.0.0",
+  "description": "Reinforcement Learning",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Minh Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+  }
+}
