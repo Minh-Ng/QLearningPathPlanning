@@ -38,5 +38,7 @@ app.get('/js/bootstrap.min.css', function(req, res) {
     res.sendFile(path.join(__dirname + '/js/bootstrap.min.css'));
 });
 
-
+app.all('*', function(req, res) {
+  res.redirect("/");
+});
 app.listen(8888);
