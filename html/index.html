@@ -4,29 +4,35 @@
     <meta charset="UTF-8">
     <meta name="author" content="Minh Nguyen">
     <title>Reinforcement Learning CSE 190 Final</title>
-
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="/js/bootstrap.min.css">
     <style>
         .container {
             padding-top: 5%;
-            padding-bottom: 1%;
+            padding-bottom: 4px;
         }
         #caption {
             text-align: center;
             padding-bottom: 10px;
         }
         p {
-            text-align: center;
+            margin: 0 0 0 0;
+            padding-bottom: 4px;
         }
         #canvas {
             padding-left: 0;
             padding-right: 0;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto 0 auto;
             display: block;
-            padding-bottom: 4px;
             outline:none
         }
+        #sel1 {
+            width: 10%;
+            margin: 0 auto;
+            float: none;
+            display: inline-block;
+            padding-bottom: 4px;
+          }
     </style>
 </head>
 <body id='top'>
@@ -44,9 +50,19 @@
     <div class="container">
         <h1 id="caption">Grid Display</h1>
         <canvas id="canvas"></canvas>
-        <p id="desc">Blue: Start<br>Green: Goal<br>Red: Pit<br>Black: Wall<br>Circle - Peach: Current Position, Alive | Red: Current Position, Dead</p>
     </div>
     <div class="text-center" id="center">
+        <p id="desc">Blue: Start<br>Green: Goal<br>Red: Pit<br>Black: Wall<br>Circle - Peach: Current Position, Alive | Red: Current Position, Dead</p>
+        <div class="form-group">
+          <label for="sel1">Select config:</label>
+          <select class="form-control" id="sel1" onchange="window.location = ('/?cfg='+this.value);">
+            <option value='0' selected disabled>Select Config</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+          </select>
+        </div>
+    </div>
   <script data-main="/js/main" src="/js/require.js"></script>
 </body>
 </html>

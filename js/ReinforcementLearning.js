@@ -16,12 +16,13 @@ define(['Underscore'], function () {
         var that = this;
 
         var comp = new aHelper();
-        var autorunSpeed = 400;
-        var pps = 110; // Pixels Per Side
+        var autorunSpeed = 300;
+        var pps = 100; // Pixels Per Side
         var cfg = null;
         var ctx = null;
         var imgPrev = null;
         var canvas = null;
+        var wallsKill = false;
         var reset = false;
         var uncertain = false;
 
@@ -260,16 +261,21 @@ define(['Underscore'], function () {
             var btn = document.createElement("button");        // Create a <button> element
             var btn2 = document.createElement("button");       
             var btn3 = document.createElement("button");       
+            var btn4 = document.createElement("button");       
             var t = document.createTextNode("Next Iteration"); // Create a text node
             var t2 = document.createTextNode("Autorun: Off");
             var t3 = document.createTextNode("Uncertainty: Off");
+            var t4 = document.createTextNode("Walls Reset: Off");
+
 
             d.appendChild(btn);                                // Add buttons
             d.appendChild(btn2);
             d.appendChild(btn3);                              
+            d.appendChild(btn4);                              
             btn.appendChild(t);                                // Append the text to <button>
             btn2.appendChild(t2);                              
             btn3.appendChild(t3);                              
+            btn4.appendChild(t4);                              
             d.setAttribute("class", "btn-group");
             btn.setAttribute("class", "btn btn-primary btn-sm");
             btn.setAttribute("id", "btn1");
@@ -278,6 +284,9 @@ define(['Underscore'], function () {
             btn2.setAttribute("data-stat", "false");
             btn3.setAttribute("class", "btn btn-primary btn-sm");
             btn3.setAttribute("id", "uncertain");
+            btn4.setAttribute("class", "btn btn-primary btn-sm");
+            btn4.setAttribute("id", "wallR");
+
 
             btn.onclick = function() {
                 var max = null;
@@ -324,6 +333,15 @@ define(['Underscore'], function () {
                 } else if(uncertain === false){
                     uncertain = true;
                     t3.nodeValue = "Uncertainty: On";
+                }
+            }
+            btn4.onclick = function() {
+                if(wallsKill === true) {
+                    wallsKill = false;
+                    t4.nodeValue = "Walls Reset: Off";
+                } else if(wallsKill === false){
+                    wallsKill = true;
+                    t4.nodeValue = "Walls Reset: On";
                 }
             }
             document.getElementById('center').appendChild(d);  
@@ -386,7 +404,7 @@ define(['Underscore'], function () {
 
                 calculateQNew(that.currentPos[1], that.currentPos[0], xN, yN, dir);
 
-                if(isGoal(coord) || !isNotPit(coord) || !isNotWall(coord)) {
+                if(isGoal(coord) || !isNotPit(coord) || (wallsKill && !isNotWall(coord))) {
                     reset = true;
                 }
                 if(isNotWall(coord)) {
@@ -415,10 +433,9 @@ define(['Underscore'], function () {
         }
 
         function drawRect(context, x, y) {
-            var offset = 1; // Offset balances overlapping grid lines
-            var xPos = x*pps+offset;
-            var yPos = y*pps+offset;
-            context.fillRect(xPos, yPos, pps-offset, pps-offset);
+            var xPos = x*pps;
+            var yPos = y*pps;
+            context.fillRect(xPos, yPos, pps, pps);
         }
 
         function handleKeyPress(e) {
@@ -436,6 +453,9 @@ define(['Underscore'], function () {
                 case 40: 
                     that.move(0, 1, 'down');
                     break; //Down key
+                case 78:
+                    document.getElementById('btn1').click();
+                    break; //'n' key
                 default: 
                     break;
             }
